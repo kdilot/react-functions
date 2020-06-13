@@ -38,8 +38,8 @@ export const replaceAll = (
     return str.split(searchStr).join(replaceStr)
 }
 
-//  base64 => File
-export const base64toFile = (dataurl: any, fileName: any) => {
+//  base64 => Blob
+export const base64tBlob = (dataurl: any, fileName: any) => {
     let arr = dataurl.split(','),
         mime = arr[0].match(/:(.*?);/)[1],
         bstr = atob(arr[1]),
@@ -113,6 +113,8 @@ export const rotateImage = (
     quality: number,
     degree: number = 90
 ) => {
+    // PC 에서는 자동으로 회전감지, iOS 에서는 자동으로 회전감지
+    // 안드로이드 에서는 회전 적용이 필요(세로 이미지가 옆으로 누워서 인식)
     let canvas = document.createElement('canvas')
 
     let width = image.width
@@ -195,6 +197,20 @@ export const resizeImage = (
     return canvas.toDataURL('image/jpeg', quality)
 }
 
+//   이미지 사이즈 제한
+export const isOverSizeBase64 = (images: any) => {
+    if (Array.isArray(images)) {
+        const isOverSize = images.map((m: any) => {
+            const base64Split = m.split(',')
+            return calculateImageSize(base64Split[1])
+        })
+        if (isOverSize.includes(true)) {
+            return true
+        }
+    }
+    return false
+}
+
 export const calculateImageSize = (base64String: string) => {
     let padding: number, inBytes: number, base64StringLength: number
     if (base64String.endsWith('==')) padding = 2
@@ -206,20 +222,6 @@ export const calculateImageSize = (base64String: string) => {
     if (inBytes / 1000 / 1000 > 10) {
         // 10 MB
         return true
-    }
-    return false
-}
-
-//   이미지 사이즈 제한
-export const isOverSizeBase64 = (images: any) => {
-    if (Array.isArray(images)) {
-        const isOverSize = images.map((m: any) => {
-            const base64Split = m.split(',')
-            return calculateImageSize(base64Split[1])
-        })
-        if (isOverSize.includes(true)) {
-            return true
-        }
     }
     return false
 }
