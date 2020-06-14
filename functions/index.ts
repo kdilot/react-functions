@@ -115,6 +115,7 @@ export const rotateImage = (
 ) => {
     // PC 에서는 자동으로 회전감지, iOS 에서는 자동으로 회전감지
     // 안드로이드 에서는 회전 적용이 필요(세로 이미지가 옆으로 누워서 인식)
+    // orientation 값에 따라 degree 각도 조절 필요
     let canvas = document.createElement('canvas')
 
     let width = image.width
