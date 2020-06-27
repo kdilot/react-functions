@@ -1,5 +1,6 @@
 //  날짜 표현식
 export const dateExpress = (date: string) => {
+    if (!date) return false
     const time = new Date(date)
     const betweenTime = Math.floor(
         (new Date().getTime() - time.getTime()) / 1000 / 60
