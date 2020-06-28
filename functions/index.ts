@@ -38,3 +38,8 @@ export const replaceAll = (
 ) => {
     return str.split(searchStr).join(replaceStr)
 }
+
+//  get string length
+export const stringLengthLimit = (text: string, len: number = 50) => {
+    return text.length > len ? true : false
+}
