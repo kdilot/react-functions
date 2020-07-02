@@ -30,8 +30,8 @@ export const dateExpress = (date: string) => {
     }.${time.getDate()}`
 }
 
-//  replaceAll
-export const replaceAll = (
+//  replace all string
+export const stringReplaceAll = (
     str: string,
     searchStr: string,
     replaceStr: string
@@ -39,7 +39,12 @@ export const replaceAll = (
     return str.split(searchStr).join(replaceStr)
 }
 
-//  get string length
+//  get string max lenght
 export const stringLengthLimit = (text: string, len: number = 50) => {
     return text.length > len ? true : false
+}
+
+//  compare array
+export const isArrayEqual = (arr1: any[], arr2: any[]) => {
+    return JSON.stringify(arr1.sort()) === JSON.stringify(arr2.sort())
 }
